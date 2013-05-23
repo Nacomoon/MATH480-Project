@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\title{Making an LP Matrix}
+\author{Gary Morales}
+\date{May 21, 2013}
+\begin{document}
+\maketitle
+\section{Introduction}
+As a reminder I am working in a group with Andrea, Brian, and Melissa.
+We are working on a program that acts as a tutorial for the simplex algorithm.
+
+Section \ref{goals} lists what we hope our program will acomplish
+
+Section \ref{mywork} describes what part of the project I have been working on.
+\subsection{Goals}\label{goals}
+Here is a list of what our program will do
+\begin{enumerate}
+    \item Solve linear programs
+    \item Output solution as vector of values
+    \item Output final tableau
+    \item Display tableau after each step of simplex algorithm
+    \item Display graph of feasible solutions
+\end{enumerate}
+\subsection{My part}\label{mywork}
+Since I am working in a group I have only worked on part of the project.
+In particular I am working on the input of our program.
+
+Given a linear progam of the form:
+
+\begin{array}{lrrrr}
+    \textrm{Max}  & 2x_1 & + 3x_2 & + 4x_3 & \\
+    \textrm{s.t.} & 3x_1 & + 2x_2 & - x_3  & \leq 5\\
+                  & 2x_1 & - 2x_2 &        & \leq 4\\
+                  &      &        &   x_3  & \leq 5
+\end{array}
+
+We want to take the input as a list of expressions, representing the restrictions, and single
+expression to represent the objective function
+
+\section{What I've done}
+
+So far, what I have been able to do is make a function that takes the desired input and converts it into a matrix in the form a list of lists, with each inner list representing a row of the matrix. This matrix is supposed to represent the initial tableau and will be what we use to run the algorithm.
+
+\subsection{Results}
+The resulting matrix for the linear programming given in \ref{mywork} looks like:
+
+\left(\begin{array}{rrrrrrr}
+    3  & -1 &  2 & 1 & 0 & 0 & 5 \\
+    2  &  0 & -2 & 0 & 1 & 0 & 4 \\
+    0  &  1 &  0 & 0 & 0 & 1 & 5 \\
+    -2 & -4 & -3 & 0 & 0 & 0 & 0
+\end{array}\right)
+
+One thing you will notice is tha the second column corresponds to the coefficients associated with the variable $x_3$ and not $x_2$ as would seem more natural. I do not know why but set([x1,x2,x3]) gives \verb|set([x1,|\phantom{\verb!x!}\verb|x3,|\phantom{\verb!x!}\verb|x2])|
+as the output as opposed to this order: $x_1,x_2,x_3$. The union function does a similar thing as well. I will probably end up making this into a class and having the order as a field.
+\end{document}
